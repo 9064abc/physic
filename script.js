@@ -50,9 +50,9 @@ class polygon{
   vrtxs = [];
   rad = 0;
   constructor(vertexes){
-    cntr = SumT(vertexes,"v");
+    this.cntr = SumT(vertexes,"v");
     for(var i of vertexes){
-      vrtxs.push(CalVec(i,cntr,"-"));
+      this.vrtxs.push(CalVec(i,cntr,"-"));
     }
   }
 }
