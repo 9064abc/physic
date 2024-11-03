@@ -56,7 +56,7 @@ class polygon{
   rad = 0;
   constructor(vertexes){
     var l = vertexes.length;
-    this.cntr = Calvec(SumT(vertexes,"v"),[l,l,l],"/");
+    this.cntr = CalVec(SumT(vertexes,"v"),[l,l,l],"/");
     for(var i of vertexes){
       this.vrtxs.push(CalVec(i,this.cntr,"-"));
     }
@@ -82,7 +82,7 @@ function support(Pa,Pb,d){
   }
   min = dotA.reduce((a,b) => Math.min(a,b));
   Imin = dotA.indexOf(min);
-  return Calvec(Pa.vrtxs[Imax],Pb.vrtxs[Imim],"-");
+  return CalVec(Pa.vrtxs[Imax],Pb.vrtxs[Imim],"-");
 }
 
 SppA = support(PolygonA,PolygonB,[1,0,0]);
