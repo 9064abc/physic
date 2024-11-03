@@ -1,10 +1,23 @@
 function makeP(){}
-function AddVec(Va,Vb){
+function CalVec(Va,Vb,operator){
   if(Va.length = Vb.length){
     var l = Va.length;
     var ans = [];
-    for(var i=0;i<l;i++){
-      ans.push(Va[i] + Vb[i]);
+    if(operator == "+"){
+      for(var i=0;i<l;i++){
+        ans.push(Va[i] + Vb[i]);
+      }
+    }else if(operator == "-"){
+      for(var i=0;i<l;i++){
+        ans.push(Va[i] - Vb[i]);
+      }
+    }else if(operator == "*"){
+      for(var i=0;i<l;i++){
+        ans.push(Va[i] * Vb[i]);
+      }
+      ans = ans.reduce((accumulator, currentValue) => accumulator + currentValue);
+    }else if(operator == "**"　&& l == 3){
+      ans = [Va[1]*Vb[2]-Va[2]*Vb[1],Va[2]*Vb[0]-Va[0]*Vb[2],Va[0]*Vb[1]-Va[1]*Vb[0]]
     }
     return ans;
   }
@@ -25,7 +38,7 @@ function SumT(v,d){
     }
     for(var i of v){
       if(i.length == l){
-        ans = AddVec(ans,i);
+        ans = CalVec(ans,i,"+");
       }
     }
   }
@@ -38,8 +51,8 @@ class polygon{
   constructor(vertexes){
     cntr = SumT(vertexes,"v");
     for(var i of vertexes){
-      vrtxs.push();
+      vrtxs.push(CalVec(i,cntr,"-"));
     }
   }
 }
-PolygonA = new polygon([[1,1]])
+PolygonA = new polygon([[4,11,0],[4,5,0],[9,9,0]]);
