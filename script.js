@@ -17,14 +17,14 @@ function CalVec(Va,Vb,operator){
       }
       ans = ans.reduce((accumulator, currentValue) => accumulator + currentValue);
     }else if(operator == "**"　&& l == 3){
-      ans = [Va[1]*Vb[2]-Va[2]*Vb[1],Va[2]*Vb[0]-Va[0]*Vb[2],Va[0]*Vb[1]-Va[1]*Vb[0]]
+      ans = [Va[1]*Vb[2]-Va[2]*Vb[1],Va[2]*Vb[0]-Va[0]*Vb[2],Va[0]*Vb[1]-Va[1]*Vb[0]];
     }
     return ans;
   }
 }
 
 function SumT(v,d){
-  var ans = []
+  var ans = [];
   var tmp;
   if(d == "h"){
     for(var i of v){
@@ -57,4 +57,5 @@ class polygon{
   }
 }
 
-PolygonA = new polygon([[4,11,0],[4,5,0],[9,9,0]]);
+var PolygonA = new polygon([[4,11,0],[4,5,0],[9,9,0]]);
+console.log(PolygonA);
