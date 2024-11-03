@@ -1,4 +1,4 @@
-function makeP(){}
+//function makeP(){}
 function CalVec(Va,Vb,operator){
   if(Va.length = Vb.length){
     var l = Va.length;
@@ -22,7 +22,7 @@ function CalVec(Va,Vb,operator){
     return ans;
   }
 }
-function
+
 function SumT(v,d){
   var ans = []
   var tmp;
@@ -44,6 +44,7 @@ function SumT(v,d){
   }
   return ans;
 }
+
 class polygon{
   cntr = [];
   vrtxs = [];
@@ -55,4 +56,5 @@ class polygon{
     }
   }
 }
+
 PolygonA = new polygon([[4,11,0],[4,5,0],[9,9,0]]);
