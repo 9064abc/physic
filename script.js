@@ -82,7 +82,7 @@ function support(Pa,Pb,d){
   }
   var min = dotB.reduce((a,b) => Math.min(a,b));
   var Imin = dotB.indexOf(min);
-  return CalVec(Pa.vrtxs[Imax],Pb.vrtxs[Imin],"-");
+  return CalVec(CalVec(CalVec(Pa.vrtxs[Imax],Pb.vrtxs[Imin],"-"),Pa.cntr,"+"),Pb.cntr,"-");
 }
 
 var SppA = support(PolygonA,PolygonB,[1,0,0]);
