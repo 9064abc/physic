@@ -27,6 +27,7 @@ function CalVec(Va,Vb,operator){
   }
 }
 
+
 function SumT(v,d){
   var ans = [];
   var tmp;
@@ -66,3 +67,23 @@ var PolygonA = new polygon([[4,11,0],[4,5,0],[9,9,0]]);
 var PolygonB = new polygon([[5,7,0],[7,3,0],[10,2,0],[12,7,0]])
 console.log(PolygonA);
 console.log(PolygonB);
+
+function support(Pa,Pb,d){
+  var dotA = [];
+  var dotB = [];
+  for(var i of Pa.vrtxs){
+    dotA.push(CalVec(i,d,"*"));
+  }
+  max = dotA.reduce((a,b) => Math.max(a,b));
+  Imax = dotA.indexOf(max);
+  
+  for(var i of Pb.vrtxs){
+    dotA.push(CalVec(i,d,"*"));
+  }
+  min = dotA.reduce((a,b) => Math.min(a,b));
+  Imin = dotA.indexOf(min);
+  return Calvec(Pa.vrtxs[Imax],Pb.vrtxs[Imim],"-");
+}
+
+SppA = support(PolygonA,PolygonB,[1,0,0]);
+SppB = support(PolygonA,PolygonB,[-1,0,0]);
