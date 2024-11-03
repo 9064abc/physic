@@ -74,16 +74,17 @@ function support(Pa,Pb,d){
   for(var i of Pa.vrtxs){
     dotA.push(CalVec(i,d,"*"));
   }
-  max = dotA.reduce((a,b) => Math.max(a,b));
-  Imax = dotA.indexOf(max);
+  var max = dotA.reduce((a,b) => Math.max(a,b));
+  var Imax = dotA.indexOf(max);
   
   for(var i of Pb.vrtxs){
     dotA.push(CalVec(i,d,"*"));
   }
-  min = dotA.reduce((a,b) => Math.min(a,b));
-  Imin = dotA.indexOf(min);
-  return CalVec(Pa.vrtxs[Imax],Pb.vrtxs[Imim],"-");
+  var min = dotA.reduce((a,b) => Math.min(a,b));
+  var Imin = dotA.indexOf(min);
+  return CalVec(Pa.vrtxs[Imax],Pb.vrtxs[Imin],"-");
 }
 
-SppA = support(PolygonA,PolygonB,[1,0,0]);
-SppB = support(PolygonA,PolygonB,[-1,0,0]);
+var SppA = support(PolygonA,PolygonB,[1,0,0]);
+var SppB = support(PolygonA,PolygonB,[-1,0,0]);
+console.log(SppA,SppB);
