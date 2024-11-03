@@ -52,7 +52,7 @@ class polygon{
   constructor(vertexes){
     this.cntr = SumT(vertexes,"v");
     for(var i of vertexes){
-      this.vrtxs.push(CalVec(i,cntr,"-"));
+      this.vrtxs.push(CalVec(i,this.cntr,"-"));
     }
   }
 }
