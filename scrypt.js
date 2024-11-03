@@ -1,5 +1,5 @@
 function makeP(){}
-function SumVec(Va,Vb){
+function AddVec(Va,Vb){
   if(Va.length = Vb.length){
     var l = Va.length;
     var ans = [];
@@ -9,6 +9,7 @@ function SumVec(Va,Vb){
     return ans;
   }
 }
+function
 function SumT(v,d){
   var ans = []
   var tmp;
@@ -24,7 +25,7 @@ function SumT(v,d){
     }
     for(var i of v){
       if(i.length == l){
-        ans = SumVec(ans,i);
+        ans = AddVec(ans,i);
       }
     }
   }
@@ -35,11 +36,9 @@ class polygon{
   vrtxs = [];
   rad = 0;
   constructor(vertexes){
-    for(var i of center){
-      cntr.push(i);
-    }
+    cntr = SumT(vertexes,"v");
     for(var i of vertexes){
-      vrtxs.push([...i]);
+      vrtxs.push();
     }
   }
 }
