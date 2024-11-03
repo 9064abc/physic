@@ -78,10 +78,10 @@ function support(Pa,Pb,d){
   var Imax = dotA.indexOf(max);
   
   for(var i of Pb.vrtxs){
-    dotA.push(CalVec(i,d,"*"));
+    dotB.push(CalVec(i,d,"*"));
   }
-  var min = dotA.reduce((a,b) => Math.min(a,b));
-  var Imin = dotA.indexOf(min);
+  var min = dotB.reduce((a,b) => Math.min(a,b));
+  var Imin = dotB.indexOf(min);
   return CalVec(Pa.vrtxs[Imax],Pb.vrtxs[Imin],"-");
 }
 
