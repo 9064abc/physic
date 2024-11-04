@@ -157,9 +157,12 @@ function collision(Pa,Pb){
     }*/
   }
 }
-
-if(collision(PolygonA,PolygonB)){
-  console.log("true");
-}else{
-  console.log("false");
+for(var i=0;i<20;i++){
+  if(collision(PolygonA,PolygonB)){
+    console.log(i*0.5,"true");
+  }else{
+    console.log(i*0.5,"false");
+  }
+  PolygonB.cntr[1] += 0.5
 }
+
