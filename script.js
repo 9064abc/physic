@@ -144,7 +144,7 @@ function collision(Pa,Pb){
         if(CalVec(CalVec([0,0,0],i,"-"),CalVec()))
       }
     }*/
-    if(CalVec(d,newVrtx) < 0){
+    if(CalVec(d,newVrtx,"*") < 0){
       t = true;
       return false;
       break
