@@ -110,11 +110,11 @@ var SppB = support(PolygonA,PolygonB,[-1,0,0]);
 console.log(SppA,SppB);
 
 function collision(Pa,Pb){
-  var d = Calvec(Pa.cntr,Pb.cntr,"-");
+  var d = CalVec(Pa.cntr,Pb.cntr,"-");
   var simplex = [];
   var p = support(Pa,Pb,d);
   simplex.push(p);
-  d = Calvec([0,0,0],p,"-")
+  d = CalVec([0,0,0],p,"-")
   var t = false
   while(t == false){
     var newVrtx = support(Pa,Pb,d);
