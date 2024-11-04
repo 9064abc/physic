@@ -1,4 +1,24 @@
 //function makeP(){}
+function dot(matrix1, matrix2){
+  var res = [];
+  var row1 = matrix1.length;
+  var row2 = matrix2.length;
+  var col1 = matrix1[0].length;
+  var col2 = matrix2[0].length;
+
+  for(var i1 = 0; i1 < row1; i1++){
+    res.push([]);
+    for(var i2 = 0; i2 < col2; i2++){
+      res[i1].push(0);
+      for(var i3 = 0; i3 < col1; i3++){
+        res[i1][i2] += matrix1[i1][i3] * matrix2[i3][i2];
+      }
+    }
+  }
+
+  return res;
+}
+
 function CalVec(Va,Vb,operator){
   if(Va.length = Vb.length){
     var l = Va.length;
@@ -88,3 +108,38 @@ function support(Pa,Pb,d){
 var SppA = support(PolygonA,PolygonB,[1,0,0]);
 var SppB = support(PolygonA,PolygonB,[-1,0,0]);
 console.log(SppA,SppB);
+
+function collision(Pa,Pb){
+  var d = Calvec(Pa.cntr,Pb.cntr,"-");
+  var simplex = [];
+  var p = support(Pa,Pb,d);
+  simplex.push(p);
+  d = Calvec([0,0,0],p,"-")
+  while(){
+    var newVrtx = support(Pa,Pb,d);
+    simplex.push(newVrtx);
+    if(simplex.length > 2){
+      var absolute = [];
+      for(var i of simplex){
+        absolute.push(i[0]*i[0] + i[1]*i[1]);
+      }
+      var max = absolute.reduce((a,b) => Math.max(a,b));
+      var Imax = absolute.indexOf(max);
+      delete simplex[Imax];
+    }
+    /*if(simplex.length == 3){
+      for(var i of simplex){
+        if(CalVec(CalVec([0,0,0],i,"-"),CalVec()))
+      }
+    }*/
+    if(CalVec(d,newVrtx) < 0){
+      return false;
+      break
+    } 
+    var tmp = Calvec(simplex[0],simplex[1],"-");
+    d = [-tmp[1],tmp[0]];
+    if(CalVec(p,d,"*") > 0){
+      d = [tmp[1],-tmp[0]];    
+    }
+  }
+}
