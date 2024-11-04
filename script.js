@@ -137,7 +137,8 @@ function collision(Pa,Pb){
       }
       var max = absolute.reduce((a,b) => Math.max(a,b));
       var Imax = absolute.indexOf(max);
-      delete simplex[Imax];
+      //delete simplex[Imax];
+      simplex.splice(Imax,1);
     }
     /*if(simplex.length == 3){
       for(var i of simplex){
