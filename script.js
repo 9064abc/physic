@@ -151,7 +151,7 @@ function collision(Pa,Pb){
       break
     } 
     var tmp = CalVec(simplex[0],simplex[1],"-");
-    d = CalVec(p,[-tmp[1],tmp[0],0],"*")>0 ? [tmp[1],-tmp[0],0] : [-tmp[1],tmp[0],0];
+    d = CalVec(simplex[0],[-tmp[1],tmp[0],0],"*")>0 ? [tmp[1],-tmp[0],0] : [-tmp[1],tmp[0],0];
     /*d = [-tmp[1],tmp[0]];
     if(CalVec(p,d,"*") > 0){
       d = [tmp[1],-tmp[0]];    
