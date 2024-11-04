@@ -121,11 +121,11 @@ function collision(Pa,Pb){
     simplex.push(newVrtx);
     if(simplex.length > 2){
       var AB = CalVec(simplex[0],simplex[1],"-");
-      var Vc = CalVec(simplex[0],[-AB[1],AB[0]],"*")>0 ? [AB[1],-AB[0]] : [-AB[1],AB[0]];
+      var Vc = CalVec(simplex[0],[-AB[1],AB[0],0],"*")>0 ? [AB[1],-AB[0],0] : [-AB[1],AB[0],0];
       var BC = CalVec(simplex[1],simplex[2],"-");
-      var Va = CalVec(simplex[1],[-BC[1],BC[0]],"*")>0 ? [BC[1],-BC[0]] : [-BC[1],BC[0]];
+      var Va = CalVec(simplex[1],[-BC[1],BC[0],0],"*")>0 ? [BC[1],-BC[0],0] : [-BC[1],BC[0],0];
       var CA = CalVec(simplex[2],simplex[0],"-");
-      var Vb = CalVec(simplex[2],[-CA[1],CA[0]],"*")>0 ? [CA[1],-CA[0]] : [-CA[1],CA[0]];
+      var Vb = CalVec(simplex[2],[-CA[1],CA[0],0],"*")>0 ? [CA[1],-CA[0],0] : [-CA[1],CA[0],0];
       if(CalVec(simplex[2],Vc,"*")>0 && CalVec(simplex[0],Va,"*")>0 && CalVec(simplex[1],Vb,"*")>0){
         t = true;
         return true
@@ -150,7 +150,7 @@ function collision(Pa,Pb){
       break
     } 
     var tmp = CalVec(simplex[0],simplex[1],"-");
-    d = CalVec(p,[-tmp[1],tmp[0]],"*")>0 ? [tmp[1],-tmp[0]] : [-tmp[1],tmp[0]];
+    d = CalVec(p,[-tmp[1],tmp[0],0],"*")>0 ? [tmp[1],-tmp[0],0] : [-tmp[1],tmp[0],0];
     /*d = [-tmp[1],tmp[0]];
     if(CalVec(p,d,"*") > 0){
       d = [tmp[1],-tmp[0]];    
