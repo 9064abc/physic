@@ -129,6 +129,7 @@ function collision(Pa,Pb){
       if(CalVec(simplex[2],Vc,"*")>0 && CalVec(simplex[0],Va,"*")>0 && CalVec(simplex[1],Vb,"*")>0){
         t = true;
         return true
+        break
       }
       var absolute = [];
       for(var i of simplex){
@@ -146,9 +147,9 @@ function collision(Pa,Pb){
     if(CalVec(d,newVrtx) < 0){
       t = true;
       return false;
-      //break
+      break
     } 
-    var tmp = Calvec(simplex[0],simplex[1],"-");
+    var tmp = CalVec(simplex[0],simplex[1],"-");
     d = CalVec(p,[-tmp[1],tmp[0]],"*")>0 ? [tmp[1],-tmp[0]] : [-tmp[1],tmp[0]];
     /*d = [-tmp[1],tmp[0]];
     if(CalVec(p,d,"*") > 0){
