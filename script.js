@@ -181,7 +181,7 @@ function EPA(Pa,Pb,simplex){
     Vrtxs.includes(newVrtx) ? t = false : Vrtxs.push(newVrtx);
     if(preD == -1){
       preD = d;
-    }else if(CalVec(preD,preD,"*") = CalVec(d,d,"*")){
+    }else if(CalVec(preD,preD,"*") == CalVec(d,d,"*")){
       t = true;
       return d;
     }else{
