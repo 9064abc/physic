@@ -171,7 +171,7 @@ function EPA(Pa,Pb,simplex){
       var AB = CalVec(A,B,"-");
       var V = [-AB[1],AB[0],0];
       var AbsV = CalVec(A,V,"*")/CalVec(V,V,"*");
-      V = [AbsV*V[0],ABsV*V[1],0];
+      V = [AbsV*V[0],AbsV*V[1],0];
       Vlist.push(V);
     }
     var min = Vlist.reduce((a,b) => Math.min(CalVec(a,a,"*"),CalVec(b,b,"*")));
