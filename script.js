@@ -109,7 +109,7 @@ var SppA = support(PolygonA,PolygonB,[1,0,0]);
 var SppB = support(PolygonA,PolygonB,[-1,0,0]);
 console.log(SppA,SppB);
 
-function collision(Pa,Pb){
+function GJK(Pa,Pb){
   var d = CalVec(Pa.cntr,Pb.cntr,"-");
   var simplex = [];
   var p = support(Pa,Pb,d);
@@ -126,10 +126,10 @@ function collision(Pa,Pb){
       var Va = CalVec(simplex[1],[-BC[1],BC[0],0],"*")>0 ? [BC[1],-BC[0],0] : [-BC[1],BC[0],0];
       var CA = CalVec(simplex[2],simplex[0],"-");
       var Vb = CalVec(simplex[2],[-CA[1],CA[0],0],"*")>0 ? [CA[1],-CA[0],0] : [-CA[1],CA[0],0];
-      if(CalVec(simplex[2],Vc,"*")>0 && CalVec(simplex[0],Va,"*")>0 && CalVec(simplex[1],Vb,"*")>0){
+      if(CalVec(simplex[2],Vc,"*")>=0 && CalVec(simplex[0],Va,"*")>=0 && CalVec(simplex[1],Vb,"*")>=0){
         t = true;
-        return true
-        break
+        return simplex;
+        break;
       }
       var absolute = [];
       for(var i of simplex){
@@ -158,11 +158,44 @@ function collision(Pa,Pb){
     }*/
   }
 }
+function EPA(Pa,Pb,simplex){
+  var t = false;
+  var preD = -1
+  var Vrtxs = simplex;
+  while(t == false){
+    var l = Vrtxs.length;
+    var Vlist = []
+    for(var i=0;i<l;i++){
+      var A = Vrtxs[i%l];
+      var B = Vrtxs[(i+1)%l];
+      var AB = CalVec(A,B,"-");
+      var V = [-AB[1],AB[0],0];
+      var AbsV = CalVec(A,V,"*")/CalVec(V,V,"*");
+      V = [AbsV*V[0],ABsV*V[1],0];
+      Vlist.push(V);
+    }
+    var min = Vlist.reduce((a,b) => Math.min(CalVec(a,a,"*"),CalVec(b,b,"*")));
+    var Imin = Vlist.indexOf(min);
+    var d = Vlist[Imin];
+    var newVrtx = support(Pa,Pb,d);
+    Vrtxs.push(newVrtxs);
+    if(preD == -1){
+      preD = d;
+    }else if(CalVec(preD,preD,"*") = CalVec(d,d,"*")){
+      t = true;
+      return d;
+    }else{
+      preD = d;
+    }
+  }
+}
 for(var i=0;i<20;i++){
-  if(collision(PolygonA,PolygonB)){
-    console.log(i*0.5,"true");
-  }else{
+  if(GJK(PolygonA,PolygonB) == false){
     console.log(i*0.5,"false");
+  }else{
+    var simplex = GJK(PolygonA,PolygonB);
+    var d = EPA(PolygonA,PolygonB,simplex);
+    console.log(i*0.5,"true   d = ",d);
   }
   PolygonB.cntr[1] += 0.5
 }
