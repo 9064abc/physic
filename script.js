@@ -178,7 +178,7 @@ function EPA(Pa,Pb,simplex){
     var Imin = Vlist.indexOf(min);
     var d = Vlist[Imin];
     var newVrtx = support(Pa,Pb,d);
-    Vrtxs.push(newVrtxs);
+    Vrtxs.includes(newVrtx) ? t = false : Vrtxs.push(newVrtx);
     if(preD == -1){
       preD = d;
     }else if(CalVec(preD,preD,"*") = CalVec(d,d,"*")){
