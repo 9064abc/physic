@@ -174,7 +174,7 @@ function EPA(Pa,Pb,simplex){
       V = [AbsV*V[0],AbsV*V[1],0];
       Vlist.push(V);
     }
-    var min = Vlist.reduce((a,b) => Math.min(CalVec(a,a,"*"),CalVec(b,b,"*")));
+    var min = Vlist.reduce((a,b) => Math.min(CalVec(a,a,"*"),CalVec(b,b,"*")==CalVec(a,a,"*") ? a : b));
     var Imin = Vlist.indexOf(min);
     var d = Vlist[Imin];
     var newVrtx = support(Pa,Pb,d);
