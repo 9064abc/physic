@@ -19,7 +19,7 @@ function dot(matrix1, matrix2){
   return res;
 }
 
-function CalVec(Va,Vb,operator){
+function CalVec(Va,operator,Vb){
   if(Va.length = Vb.length){
     var l = Va.length;
     var ans = [];
@@ -63,7 +63,7 @@ function SumT(v,d){
     }
     for(var i of v){
       if(i.length == l){
-        ans = CalVec(ans,i,"+");
+        ans = CalVec(ans,"+",i);
       }
     }
   }
@@ -76,9 +76,9 @@ class polygon{
   rad = 0;
   constructor(vertexes){
     var l = vertexes.length;
-    this.cntr = CalVec(SumT(vertexes,"v"),[l,l,l],"/");
+    this.cntr = CalVec(SumT(vertexes,"v"),"/",[l,l,l]);
     for(var i of vertexes){
-      this.vrtxs.push(CalVec(i,this.cntr,"-"));
+      this.vrtxs.push(CalVec(i,"-",this.cntr));
     }
   }
 }
@@ -92,17 +92,17 @@ function support(Pa,Pb,d){
   var dotA = [];
   var dotB = [];
   for(var i of Pa.vrtxs){
-    dotA.push(CalVec(i,d,"*"));
+    dotA.push(CalVec(i,"*",d));
   }
   var max = dotA.reduce((a,b) => Math.max(a,b));
   var Imax = dotA.indexOf(max);
   
   for(var i of Pb.vrtxs){
-    dotB.push(CalVec(i,d,"*"));
+    dotB.push(CalVec(i,"*",d));
   }
   var min = dotB.reduce((a,b) => Math.min(a,b));
   var Imin = dotB.indexOf(min);
-  return CalVec(CalVec(CalVec(Pa.vrtxs[Imax],Pb.vrtxs[Imin],"-"),Pa.cntr,"+"),Pb.cntr,"-");
+  return CalVec(CalVec(CalVec(Pa.vrtxs[Imax],"-",Pb.vrtxs[Imin]),"+",Pa.cntr),"-",Pb.cntr);
 }
 
 var SppA = support(PolygonA,PolygonB,[1,0,0]);
@@ -110,23 +110,23 @@ var SppB = support(PolygonA,PolygonB,[-1,0,0]);
 console.log(SppA,SppB);
 
 function GJK(Pa,Pb){
-  var d = CalVec(Pa.cntr,Pb.cntr,"-");
+  var d = CalVec(Pa.cntr,"-",Pb.cntr);
   var simplex = [];
   var p = support(Pa,Pb,d);
   simplex.push(p);
-  d = CalVec([0,0,0],p,"-")
+  d = CalVec([0,0,0],"-",p)
   var t = false
   while(t == false){
     var newVrtx = support(Pa,Pb,d);
     simplex.push(newVrtx);
     if(simplex.length > 2){
-      var AB = CalVec(simplex[0],simplex[1],"-");
-      var Vc = CalVec(simplex[0],[-AB[1],AB[0],0],"*")>0 ? [AB[1],-AB[0],0] : [-AB[1],AB[0],0];
-      var BC = CalVec(simplex[1],simplex[2],"-");
-      var Va = CalVec(simplex[1],[-BC[1],BC[0],0],"*")>0 ? [BC[1],-BC[0],0] : [-BC[1],BC[0],0];
-      var CA = CalVec(simplex[2],simplex[0],"-");
-      var Vb = CalVec(simplex[2],[-CA[1],CA[0],0],"*")>0 ? [CA[1],-CA[0],0] : [-CA[1],CA[0],0];
-      if(CalVec(simplex[2],Vc,"*")>=0 && CalVec(simplex[0],Va,"*")>=0 && CalVec(simplex[1],Vb,"*")>=0){
+      var AB = CalVec(simplex[0],"-",simplex[1]);
+      var Vc = CalVec(simplex[0],"*",[-AB[1],AB[0],0])>0 ? [AB[1],-AB[0],0] : [-AB[1],AB[0],0];
+      var BC = CalVec(simplex[1],"-",simplex[2]);
+      var Va = CalVec(simplex[1],"*",[-BC[1],BC[0],0])>0 ? [BC[1],-BC[0],0] : [-BC[1],BC[0],0];
+      var CA = CalVec(simplex[2],"-",simplex[0]);
+      var Vb = CalVec(simplex[2],"*",[-CA[1],CA[0],0])>0 ? [CA[1],-CA[0],0] : [-CA[1],CA[0],0];
+      if(CalVec(simplex[2],"*",Vc)>=0 && CalVec(simplex[0],"*",Va)>=0 && CalVec(simplex[1],"*",Vb)>=0){
         t = true;
         return simplex;
         break;
@@ -142,16 +142,16 @@ function GJK(Pa,Pb){
     }
     /*if(simplex.length == 3){
       for(var i of simplex){
-        if(CalVec(CalVec([0,0,0],i,"-"),CalVec()))
+        if(CalVec(CalVec([0,0,0],"-",i),CalVec()))
       }
     }*/
-    if(CalVec(d,newVrtx,"*") < 0){
+    if(CalVec(d,"*",newVrtx) < 0){
       t = true;
       return false;
       break
     } 
-    var tmp = CalVec(simplex[0],simplex[1],"-");
-    d = CalVec(simplex[0],[-tmp[1],tmp[0],0],"*")>0 ? [tmp[1],-tmp[0],0] : [-tmp[1],tmp[0],0];
+    var tmp = CalVec(simplex[0],"-",simplex[1]);
+    d = CalVec(simplex[0],"*",[-tmp[1],tmp[0],0])>0 ? [tmp[1],-tmp[0],0] : [-tmp[1],tmp[0],0];
     /*d = [-tmp[1],tmp[0]];
     if(CalVec(p,d,"*") > 0){
       d = [tmp[1],-tmp[0]];    
@@ -168,20 +168,20 @@ function EPA(Pa,Pb,simplex){
     for(var i=0;i<l;i++){
       var A = Vrtxs[i%l];
       var B = Vrtxs[(i+1)%l];
-      var AB = CalVec(A,B,"-");
+      var AB = CalVec(A,"-",B);
       var V = [-AB[1],AB[0],0];
-      var AbsV = CalVec(A,V,"*")/CalVec(V,V,"*");
+      var AbsV = CalVec(A,"*",V)/CalVec(V,"*",V);
       V = [AbsV*V[0],AbsV*V[1],0];
       Vlist.push(V);
     }
-    var min = Vlist.reduce((a,b) => Math.min(CalVec(a,a,"*"),CalVec(b,b,"*"))==CalVec(a,a,"*") ? a : b);
+    var min = Vlist.reduce((a,b) => Math.min(CalVec(a,"*",a),CalVec(b,"*",b))==CalVec(a,"*",a) ? a : b);
     var Imin = Vlist.indexOf(min);
     var d = Vlist[Imin];
     var newVrtx = support(Pa,Pb,d);
     Vrtxs.includes(newVrtx) ? t = false : Vrtxs.push(newVrtx);
     if(preD == -1){
       preD = d;
-    }else if(CalVec(preD,preD,"*") == CalVec(d,d,"*")){
+    }else if(CalVec(preD,"*",preD) == CalVec(d,"*",d)){
       t = true;
       return d;
     }else{
