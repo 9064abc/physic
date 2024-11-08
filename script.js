@@ -140,31 +140,23 @@ function GJK(Pa,Pb){
       //delete simplex[Imax];
       simplex.splice(Imax,1);
     }
-    /*if(simplex.length == 3){
-      for(var i of simplex){
-        if(CalVec(CalVec([0,0,0],"-",i),CalVec()))
-      }
-    }*/
     if(CalVec(d,"*",newVrtx) < 0){
       t = true;
       return false;
-      break
+      break;
     } 
     var tmp = CalVec(simplex[0],"-",simplex[1]);
     d = CalVec(simplex[0],"*",[-tmp[1],tmp[0],0])>0 ? [tmp[1],-tmp[0],0] : [-tmp[1],tmp[0],0];
-    /*d = [-tmp[1],tmp[0]];
-    if(CalVec(p,d,"*") > 0){
-      d = [tmp[1],-tmp[0]];    
-    }*/
   }
 }
+
 function EPA(Pa,Pb,simplex){
   var t = false;
   var preD = -1
   var Vrtxs = simplex;
   while(t == false){
     var l = Vrtxs.length;
-    var Vlist = []
+    var Vlist = [];
     for(var i=0;i<l;i++){
       var A = Vrtxs[i%l];
       var B = Vrtxs[(i+1)%l];
@@ -189,6 +181,31 @@ function EPA(Pa,Pb,simplex){
     }
   }
 }
+
+function drawPolygon(Polygon,dim = "2d"){
+  var cntr = Polygon.cntr;
+  const height = 1000;
+  const width  = 1000;
+
+    // canvasのお作法
+  const cvs = document.getElementById('canvas');  // canvas要素への参照の取得
+             // コンテキストの取得
+  cvs.width = width;
+  cvs.height = height;
+  if(dim == "2d"){
+    const ctx = canvas.getContext('2d'); 
+    var vrtxs = Polygon.vrtxs;
+    var l = vrtxs.length;
+    for(var i=0;i<l;i++){
+      var j = (i+1)%l
+      ctx.beginPath();
+      ctx.moveTo(vrtxs[i][0], vrtxs[i][1]);   // ペンを点Iへ移動
+      ctx.lineTo(vrtxs[j][0], vrtxs[j][1]);   // 点Iから点Jへ線を引く
+      ctx.stroke();
+    }
+  }
+}
+
 for(var i=0;i<20;i++){
   if(GJK(PolygonA,PolygonB) == false){
     console.log(i*0.5,"false");
@@ -197,6 +214,6 @@ for(var i=0;i<20;i++){
     var d = EPA(PolygonA,PolygonB,simplex);
     console.log(i*0.5,"true   d = ",d);
   }
-  PolygonB.cntr[1] += 0.5
+  PolygonB.cntr[1] += 0.5;
 }
 
