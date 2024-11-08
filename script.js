@@ -193,7 +193,7 @@ function drawPolygon(Polygon,dim = "2d"){
   cvs.width = width;
   cvs.height = height;
   if(dim == "2d"){
-    const ctx = canvas.getContext('2d'); 
+    const ctx = cvs.getContext('2d'); 
     var vrtxs = Polygon.vrtxs;
     var l = vrtxs.length;
     for(var i=0;i<l;i++){
