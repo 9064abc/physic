@@ -1,3 +1,13 @@
+const cvs = document.getElementById('canvas');  // canvas要素への参照の取得
+const ctx = cvs.getContext('2d'); 
+const height = 1000;
+const width  = 1000;
+// コンテキストの取得
+cvs.width = width;
+cvs.height = height;
+ctx.translate(0,cvs.height); 
+ctx.scale(1,-1)
+
 //function makeP(){}
 function dot(matrix1, matrix2){
   var res = [];
@@ -184,16 +194,9 @@ function EPA(Pa,Pb,simplex){
 
 function drawPolygon(Polygon,dim = "2d"){
   var cntr = Polygon.cntr;
-  const height = 1000;
-  const width  = 1000;
-
-    // canvasのお作法
-  const cvs = document.getElementById('canvas');  // canvas要素への参照の取得
-             // コンテキストの取得
-  cvs.width = width;
-  cvs.height = height;
+  
   if(dim == "2d"){
-    const ctx = cvs.getContext('2d'); 
+    
     var vrtxs = Polygon.vrtxs;
     var l = vrtxs.length;
     for(var i=0;i<l;i++){
@@ -205,6 +208,22 @@ function drawPolygon(Polygon,dim = "2d"){
     }
   }
 }
+
+function update(PolygonList){
+  //自由落下
+  //衝突判定　GJK
+  //めり込み解消　EPA
+  //衝突点計算
+  //撃力計算
+  //位置　角度　速度　更新
+  //再描画
+  
+  ctx.clearRect(0,0,cvs.width,cvs.height);
+  for(var i of PolygonList){
+    drawPolygon(i);
+  }
+}
+
 
 for(var i=0;i<20;i++){
   if(GJK(PolygonA,PolygonB) == false){
