@@ -24,7 +24,7 @@ update(PolygonList);
 const interval = setInterval(
   function(){
     update(PolygonList);
-    console.log(PolygonList[0].cntr);
+    console.log(PolygonList[0].cntr,PolygonList[0].v);
   }
   ,400
 );
