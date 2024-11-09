@@ -8,7 +8,11 @@ cvs.height = height;
 ctx.translate(0,cvs.height); 
 ctx.scale(1,-1)
 ctx.fillStyle = "black";
+//定数
 var g = 0.1;
+var e_wall = 0.95;
+var e_polygon = 0.98;
+
 //function makeP(){}
 function dot(matrix1, matrix2){
   var res = [];
@@ -111,7 +115,28 @@ class polygon{
       
       i = CalVec(i,"+",this.cntr);
       if(i[1] < 0){
-        spprt = this.support([1,0,0])
+        var spprt = this.support([0,-1,0]);
+        var d = spprt[1]
+        var t = d/this.v[1];
+        this.v[1] = -1*this.v[1] * e_wall;
+        this.cntr[1] = this.cntr[1] - d + this.v[1]*(1-t)
+        //this.cntr = CalVec(CalVec(this.cntr,"+",[0,d,0]),"+",this.v[1]*);
+      }
+      if(i[0] < 0){
+        var spprt = this.support([-1,0,0]);
+        var d = spprt[0]
+        var t = d/this.v[0];
+        this.v[1] = -1*this.v[0] * e_wall;
+        this.cntr[0] = this.cntr[0] - d + this.v[0]*(1-t)
+        //this.cntr = CalVec(CalVec(this.cntr,"+",[0,d,0]),"+",this.v[1]*);
+      }
+      if(i[0] > width){
+        var spprt = this.support([1,0,0]);
+        var d = spprt[0] - width;
+        var t = d/this.v[0];
+        this.v[0] = -this.v[0] * e_wall;
+        this.cntr[0] = this.cntr[1] - d + this.v[1]*(1-t)
+        //this.cntr = CalVec(CalVec(this.cntr,"+",[0,d,0]),"+",this.v[1]*);
       }
     }
   }
@@ -145,7 +170,7 @@ class polygon{
 }
 
 function support(Pa,Pb,d){
-  var dotA = [];
+  /*var dotA = [];
   var dotB = [];
   for(var i of Pa.vrtxs){
     dotA.push(CalVec(i,"*",d));
@@ -157,8 +182,11 @@ function support(Pa,Pb,d){
     dotB.push(CalVec(i,"*",d));
   }
   var min = dotB.reduce((a,b) => Math.min(a,b));
-  var Imin = dotB.indexOf(min);
-  return CalVec(CalVec(CalVec(Pa.vrtxs[Imax],"-",Pb.vrtxs[Imin]),"+",Pa.cntr),"-",Pb.cntr);
+  var Imin = dotB.indexOf(min);*/
+  var sppA = Pa.support(d);
+  var sppB = Pb.support(CalVec(d,"/",[-1,-1,-1]));
+  return CalVec(sppA,"-",sppB);
+  //return CalVec(CalVec(CalVec(Pa.vrtxs[Imax],"-",Pb.vrtxs[Imin]),"+",Pa.cntr),"-",Pb.cntr);
 }
 
 function GJK(Pa,Pb){
