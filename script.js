@@ -196,7 +196,7 @@ function drawPolygon(Polygon,dim = "2d"){
       var j = (i+1)%l
       ctx.beginPath();
       ctx.moveTo(vrtxs[i][0]+cntr[0], vrtxs[i][1]+cntr[1]);   // ペンを点Iへ移動
-      ctx.lineTo(vrtxs[j][0]+cntr[0], vrtxs[j][1]cntr[1]);   // 点Iから点Jへ線を引く
+      ctx.lineTo(vrtxs[j][0]+cntr[0], vrtxs[j][1]+cntr[1]);   // 点Iから点Jへ線を引く
       ctx.stroke();
     }
   }
