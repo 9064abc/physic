@@ -4,8 +4,8 @@ console.log(CalVec([1,1],"+",[4,3]));
 const ctx = cvs.getContext("2d");
 ctx.translate(0,cvs.height); 
 ctx.scale(1,-1)*/
-var PolygonA = new polygon([[4,11,0],[4,5,0],[9,9,0]]);
-var PolygonB = new polygon([[5,7,0],[7,3,0],[10,2,0],[12,7,0]])
+var PolygonA = new polygon([[16,44,0],[16,20,0],[36,36,0]]);
+var PolygonB = new polygon([[20,28,0],[28,12,0],[40,8,0],[48,28,0]])
 var PolygonList = [PolygonA,PolygonB];
 console.log(PolygonA);
 console.log(PolygonB);
@@ -18,7 +18,7 @@ for(var i=0;i<20;i++){
     var d = EPA(PolygonA,PolygonB,simplex);
     console.log(i*0.5,"true   d = ",d);
   }
-  PolygonB.cntr[1] += 0.5;
+  PolygonB.cntr[1] += 2;
 }
 update(PolygonList);
 const interval = setInterval(
