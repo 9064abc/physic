@@ -93,11 +93,6 @@ class polygon{
   }
 }
 
-var PolygonA = new polygon([[4,11,0],[4,5,0],[9,9,0]]);
-var PolygonB = new polygon([[5,7,0],[7,3,0],[10,2,0],[12,7,0]])
-console.log(PolygonA);
-console.log(PolygonB);
-
 function support(Pa,Pb,d){
   var dotA = [];
   var dotB = [];
@@ -114,10 +109,6 @@ function support(Pa,Pb,d){
   var Imin = dotB.indexOf(min);
   return CalVec(CalVec(CalVec(Pa.vrtxs[Imax],"-",Pb.vrtxs[Imin]),"+",Pa.cntr),"-",Pb.cntr);
 }
-
-var SppA = support(PolygonA,PolygonB,[1,0,0]);
-var SppB = support(PolygonA,PolygonB,[-1,0,0]);
-console.log(SppA,SppB);
 
 function GJK(Pa,Pb){
   var d = CalVec(Pa.cntr,"-",Pb.cntr);
@@ -215,7 +206,7 @@ function update(PolygonList){
   //めり込み解消　EPA
   //衝突点計算
   //撃力計算
-  //位置　角度　速度　更新
+  //自由落下　位置　角度　速度　更新
   //再描画
   
   ctx.clearRect(0,0,cvs.width,cvs.height);
@@ -225,7 +216,7 @@ function update(PolygonList){
 }
 
 
-for(var i=0;i<20;i++){
+/*for(var i=0;i<20;i++){
   if(GJK(PolygonA,PolygonB) == false){
     console.log(i*0.5,"false");
   }else{
@@ -234,5 +225,5 @@ for(var i=0;i<20;i++){
     console.log(i*0.5,"true   d = ",d);
   }
   PolygonB.cntr[1] += 0.5;
-}
+}*/
 
