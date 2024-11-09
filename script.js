@@ -126,7 +126,7 @@ class polygon{
         var spprt = this.support([-1,0,0]);
         var d = spprt[0]
         var t = d/this.v[0];
-        this.v[1] = -1*this.v[0] * e_wall;
+        this.v[0] = -1*this.v[0] * e_wall;
         this.cntr[0] = this.cntr[0] - d + this.v[0]*(1-t)
         //this.cntr = CalVec(CalVec(this.cntr,"+",[0,d,0]),"+",this.v[1]*);
       }
@@ -135,7 +135,7 @@ class polygon{
         var d = spprt[0] - width;
         var t = d/this.v[0];
         this.v[0] = -this.v[0] * e_wall;
-        this.cntr[0] = this.cntr[1] - d + this.v[1]*(1-t)
+        this.cntr[0] = this.cntr[0] - d + this.v[0]*(1-t)
         //this.cntr = CalVec(CalVec(this.cntr,"+",[0,d,0]),"+",this.v[1]*);
       }
     }
@@ -282,7 +282,7 @@ function drawPolygon(Polygon,dim = "2d"){
 function update(PolygonList){
   //自由落下
   for(var i of PolygonList){
-    i.v[0] -= g;
+    i.v[1] -= g;
     i.cntr = CalVec(i.cntr,"+",i.v);
     //壁
     i.wall()
