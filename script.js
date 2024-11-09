@@ -7,7 +7,8 @@ cvs.width = width;
 cvs.height = height;
 ctx.translate(0,cvs.height); 
 ctx.scale(1,-1)
-
+ctx.fillStyle = "black";
+var g = 0.1;
 //function makeP(){}
 function dot(matrix1, matrix2){
   var res = [];
@@ -81,16 +82,64 @@ function SumT(v,d){
 }
 
 class polygon{
+  num = 0
   cntr = [];
   vrtxs = [];
   rad = 0;
   v = [0,0,0];
   w = [0,0,0];　　//角速度
-  constructor(vertexes){
+  constructor(vertexes,num){
     var l = vertexes.length;
     this.cntr = CalVec(SumT(vertexes,"v"),"/",[l,l,l]);
+    this.num = num
     for(var i of vertexes){
       this.vrtxs.push(CalVec(i,"-",this.cntr));
+    }
+  }
+  support(d){
+    var dotA = [];
+    for(var i of this.vrtxs){
+      dotA.push(CalVec(i,"*",d));
+    }
+    var max = dotA.reduce((a,b) => Math.max(a,b));
+    var Imax = dotA.indexOf(max);
+    return CalVec(this.vrtxs[Imax],"+",this.cntr);
+  }
+  //壁との衝突
+  wall(PolygonList){
+    for(var i of this.vrtxs){
+      
+      i = CalVec(i,"+",this.cntr);
+      if(i[1] < 0){
+        spprt = this.support([1,0,0])
+      }
+    }
+  }
+  //物体との衝突
+  collision(PolygonList){
+    var l = PolygonList.length;
+    for(var i=this.num+1;i<l;i++){
+      //衝突判定　GJK
+      var simplex = GJK(PolygonList[this.num],PolygonList[i]);
+      if(simplex != false){
+        //めり込み解消　EPA
+        var d = EPA(PolygonList[this.num],PolygonList[i],simplex);
+        //衝突点計算
+        //撃力計算
+        //自由落下　位置　角度　速度　更新
+        
+      }
+    }
+  }
+  //再描画
+  draw(){
+    var l = this.vrtxs.length;
+    for(var i=0;i<l;i++){
+      var j = (i+1)%l
+      ctx.beginPath();
+      ctx.moveTo(this.vrtxs[i][0]+this.cntr[0], this.vrtxs[i][1]+this.cntr[1]);   // ペンを点Iへ移動
+      ctx.lineTo(this.vrtxs[j][0]+this.cntr[0], this.vrtxs[j][1]+this.cntr[1]);   // 点Iから点Jへ線を引く
+      ctx.stroke();
     }
   }
 }
@@ -204,16 +253,20 @@ function drawPolygon(Polygon,dim = "2d"){
 
 function update(PolygonList){
   //自由落下
-  //衝突判定　GJK
-  //めり込み解消　EPA
-  //衝突点計算
-  //撃力計算
-  //自由落下　位置　角度　速度　更新
-  //再描画
+  for(var i of PolygonList){
+    i.v[0] -= g;
+    i.cntr = CalVec(i.cntr,"+",i.v);
+  }
+  //壁
   
+  //衝突
+  for(var i of PolygonList){
+    i.collision(PolugonList);
+  }
   ctx.clearRect(0,0,cvs.width,cvs.height);
   for(var i of PolygonList){
-    drawPolygon(i);
+    //drawPolygon(i);
+    i.draw();
   }
 }
 
