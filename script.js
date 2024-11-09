@@ -110,7 +110,7 @@ class polygon{
     return CalVec(this.vrtxs[Imax],"+",this.cntr);
   }
   //壁との衝突
-  wall(PolygonList){
+  wall(){
     for(var i of this.vrtxs){
       
       i = CalVec(i,"+",this.cntr);
@@ -284,12 +284,12 @@ function update(PolygonList){
   for(var i of PolygonList){
     i.v[0] -= g;
     i.cntr = CalVec(i.cntr,"+",i.v);
+    //壁
+    i.wall()
   }
-  //壁
-  
   //衝突
   for(var i of PolygonList){
-    i.collision(PolugonList);
+    i.collision(PolygonList);
   }
   ctx.clearRect(0,0,cvs.width,cvs.height);
   for(var i of PolygonList){
