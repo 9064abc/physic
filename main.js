@@ -6,7 +6,7 @@ ctx.translate(0,cvs.height);
 ctx.scale(1,-1)*/
 var PolygonA = new polygon([[4,11,0],[4,5,0],[9,9,0]]);
 var PolygonB = new polygon([[5,7,0],[7,3,0],[10,2,0],[12,7,0]])
-var PolygonList = [PoygonA,PolygonB];
+var PolygonList = [PolygonA,PolygonB];
 console.log(PolygonA);
 console.log(PolygonB);
 for(var i=0;i<20;i++){
