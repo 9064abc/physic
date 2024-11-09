@@ -21,3 +21,9 @@ for(var i=0;i<20;i++){
   PolygonB.cntr[1] += 0.5;
 }
 update(PolygonList);
+const interval = setInterval(
+  function(){
+    update(PolygonList);
+  }
+  ,16
+);
