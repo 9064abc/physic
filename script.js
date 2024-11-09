@@ -1,7 +1,7 @@
 const cvs = document.getElementById('canvas');  // canvas要素への参照の取得
 const ctx = cvs.getContext('2d'); 
-const height = 1000;
-const width  = 1000;
+const height = 200;
+const width  = 200;
 // コンテキストの取得
 cvs.width = width;
 cvs.height = height;
@@ -84,6 +84,8 @@ class polygon{
   cntr = [];
   vrtxs = [];
   rad = 0;
+  v = [0,0,0];
+  w = [0,0,0];　　//角速度
   constructor(vertexes){
     var l = vertexes.length;
     this.cntr = CalVec(SumT(vertexes,"v"),"/",[l,l,l]);
@@ -193,8 +195,8 @@ function drawPolygon(Polygon,dim = "2d"){
     for(var i=0;i<l;i++){
       var j = (i+1)%l
       ctx.beginPath();
-      ctx.moveTo(vrtxs[i][0], vrtxs[i][1]);   // ペンを点Iへ移動
-      ctx.lineTo(vrtxs[j][0], vrtxs[j][1]);   // 点Iから点Jへ線を引く
+      ctx.moveTo(vrtxs[i][0]+cntr[0], vrtxs[i][1]+cntr[1]);   // ペンを点Iへ移動
+      ctx.lineTo(vrtxs[j][0]+cntr[0], vrtxs[j][1]cntr[1]);   // 点Iから点Jへ線を引く
       ctx.stroke();
     }
   }
