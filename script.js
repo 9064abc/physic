@@ -149,6 +149,7 @@ class polygon{
       if(simplex != false){
         //めり込み解消　EPA
         var d = EPA(PolygonList[this.num],PolygonList[i],simplex);
+        console.log("collision",d);
         //衝突点計算
         //撃力計算
         //自由落下　位置　角度　速度　更新
