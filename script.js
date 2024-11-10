@@ -250,7 +250,8 @@ function EPA(Pa,Pb,simplex){
     var Imin = Vlist.indexOf(min);
     var d = Vlist[Imin];
     var newVrtx = support(Pa,Pb,d);
-    if(Vrtxs.some((element) => element == newVrtx)){
+    //配列の比較
+    if(Vrtxs.some((element) => element[0]==newVrtx[0] && element[1]==newVrtx[1] && element[2]==newVrtx[2])){
       //Vrtxs.push(newVrtx);
       t = false
     }else{
