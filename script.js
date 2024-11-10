@@ -172,23 +172,9 @@ class polygon{
 }
 
 function support(Pa,Pb,d){
-  /*var dotA = [];
-  var dotB = [];
-  for(var i of Pa.vrtxs){
-    dotA.push(CalVec(i,"*",d));
-  }
-  var max = dotA.reduce((a,b) => Math.max(a,b));
-  var Imax = dotA.indexOf(max);
-  
-  for(var i of Pb.vrtxs){
-    dotB.push(CalVec(i,"*",d));
-  }
-  var min = dotB.reduce((a,b) => Math.min(a,b));
-  var Imin = dotB.indexOf(min);*/
   var sppA = Pa.support(d);
   var sppB = Pb.support(CalVec(d,"/",[-1,-1,-1]));
   return CalVec(sppA,"-",sppB);
-  //return CalVec(CalVec(CalVec(Pa.vrtxs[Imax],"-",Pb.vrtxs[Imin]),"+",Pa.cntr),"-",Pb.cntr);
 }
 
 function GJK(Pa,Pb){
@@ -259,10 +245,6 @@ function EPA(Pa,Pb,simplex){
     }else{
       Vrtxs.push(newVrtx);
     }
-    //Vrtxs.includes(newVrtx) ? t = false : Vrtxs.push(newVrtx);
-    /*if(!Vrtxs.includes(newVrtx)){
-      Vrtxs.push(newVrtx);
-    }*/
     if(preD == -1){
       preD = d;
     }else if(CalVec(preD,"*",preD) == CalVec(d,"*",d)){
@@ -274,7 +256,7 @@ function EPA(Pa,Pb,simplex){
   }
 }
 
-function drawPolygon(Polygon,dim = "2d"){
+/*function drawPolygon(Polygon,dim = "2d"){
   var cntr = Polygon.cntr;
   
   if(dim == "2d"){
@@ -289,7 +271,7 @@ function drawPolygon(Polygon,dim = "2d"){
       ctx.stroke();
     }
   }
-}
+}*/
 
 function update(PolygonList){
   //自由落下
@@ -305,21 +287,10 @@ function update(PolygonList){
   }
   ctx.clearRect(0,0,cvs.width,cvs.height);
   ctx.fillStyle = "black";
+  ctx.fillRect(0,0,cvs.width,cvs.height);
   for(var i of PolygonList){
-    //drawPolygon(i);
     i.draw();
   }
 }
 
-
-/*for(var i=0;i<20;i++){
-  if(GJK(PolygonA,PolygonB) == false){
-    console.log(i*0.5,"false");
-  }else{
-    var simplex = GJK(PolygonA,PolygonB);
-    var d = EPA(PolygonA,PolygonB,simplex);
-    console.log(i*0.5,"true   d = ",d);
-  }
-  PolygonB.cntr[1] += 0.5;
-}*/
 
