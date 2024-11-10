@@ -250,7 +250,10 @@ function EPA(Pa,Pb,simplex){
     var Imin = Vlist.indexOf(min);
     var d = Vlist[Imin];
     var newVrtx = support(Pa,Pb,d);
-    if(!Vrtxs.some((element) => element == newVrtx)){
+    if(Vrtxs.some((element) => element == newVrtx)){
+      //Vrtxs.push(newVrtx);
+      t = false
+    }else{
       Vrtxs.push(newVrtx);
     }
     //Vrtxs.includes(newVrtx) ? t = false : Vrtxs.push(newVrtx);
