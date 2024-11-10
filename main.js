@@ -24,11 +24,12 @@ update(PolygonList);
 var count = 0;
 const interval = setInterval(
   function(){
+    count += 1;
     update(PolygonList);
     console.log(PolygonList[0].cntr,PolygonList[0].v);
-    if(count == 100){
+    if(count == 1000){
       clearInterval(interval);
     }
   }
-  ,400
+  ,16
 );
