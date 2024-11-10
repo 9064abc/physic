@@ -160,6 +160,7 @@ class polygon{
   //再描画
   draw(){
     var l = this.vrtxs.length;
+    ctx.strokeStyle = "red";
     for(var i=0;i<l;i++){
       var j = (i+1)%l
       ctx.beginPath();
@@ -303,6 +304,7 @@ function update(PolygonList){
     i.collision(PolygonList);
   }
   ctx.clearRect(0,0,cvs.width,cvs.height);
+  ctx.fillStyle = "black";
   for(var i of PolygonList){
     //drawPolygon(i);
     i.draw();
